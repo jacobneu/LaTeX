@@ -65,7 +65,7 @@ TEXMFMAIN = /usr/local/lib/{texmf,texmf.local}:~/private/LaTeX
 %   VARTEXMF = $SELFAUTOPARENT/share/texmf-var
 
 % User texmf trees can be catered for like this...
-%   HOMETEXMF = $HOME/texmf
+   HOMETEXMF = $HOME/texmf:~/private/LaTeX
 
 % Now, list all the texmf trees. If you have multiple trees you can
 % use shell brace notation, like this:
