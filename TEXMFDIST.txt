@@ -1,0 +1,56 @@
+HOW TO CHANGE TEXMFDIST (for future reference):
+
+    pdflatex looks for .sty files in a particular subdirectry of wherever the TEXMFDIST is set to. To figure out where this is, run the following command:
+
+        kpsewhich -var-value TEXMFDIST
+
+    let's say the result is /usr/share/texlive/texmf-dist (this is the result when I'm running it on CMU's afs server, where I'm working from at the moment -- 2017-06-09). If this is the TEXMFDIST, then pdflatex will look for .sty files in the following directory,
+
+        /usr/share/texlive/texmf-dist/tex/latex
+
+    regardless of the directory structure within this latex folder if there's a .sty file in there, pdflatex will find it. If you can, move your user-defined .sty files into this folder. If you put foo.sty in the top level of this latex folder, then if you run
+
+        kpsewhich foo.sty
+
+    from anywhere, then you should get something like
+
+        /usr/share/texlive/texmf-dist/tex/latex/foo.sty
+
+    You can use /usepackage{foo} iff kpsewhich foo.sty returns a filepath.
+
+    Now, if you do not have access to the location of TEXMFDIST (for example, I do not have access to /usr/share/texlive/texmf-dist/tex/latex on CMU's afs server), then you're not out of luck. Here's how to make pdflatex look for files elsewhere:
+
+    1. Pick a directory where you want to toss the .sty files. This should (obviously) be a location where you have read/write access. For the purposes of this example, I will be placing a git repo called LaTeX inside of the directory ~/private/localtexmf.
+
+    2. Within that directory, create subdirectories:
+
+            /tex/latex
+
+    you must use these names EXACTLY. So, to recap, I have the directory structure
+
+        ~/private/localtexmf/tex/latex
+
+    3. Put all your .sty files you want inside this directory. You can structure the directories witin the latex directory however you want. In this example, I am cloning the LaTeX git repo (which already exists) inside the latex folder.
+
+    4. Now, do the above kpsewhich -var-value TEXMFDIST to get your current TEXMFDIST. I will use as my example /usr/share/texlive/texmf-dist/tex/latex, as stated above. Then run the following command EXACTLY (except, replacing my example filepaths with the relevant filepaths):
+
+        export TEXMFDIST=/usr/share/texlive/texmf-dist/tex/latex:~/private/localtexmf
+
+    i.e. you need to run export TEXMFDIST=[--your current TEXMFDIST]:[--your desired TEXMFDIST--]. I believe you can string more than 2, but I haven't tried. If you're doing what I'm doing (SSH-ing into CMU's afs server), then you might need to do this every time you log in. It seems like my bash settings get wiped every time, unless I put them into bashrc. I'm not 100% sure though.
+
+    5. (Optional) If your bash settings are not persistent, then you can do what I did (this advice may only apply to CMU's afs server. Idk how it's different on a local machine or another server config). Go into your bashrc file
+
+        vim ~/.bashrc
+
+    and add a line
+
+        export TEXMFDIST="/usr/share/texlive/texmf-dist/tex/latex:~/private/localtexmf"
+
+    (note the quotation marks). This seems to so far) update my bashrc settings every time I SSH in, so my TEXMFDIST is set. I haven't actually tested this extensively, so take with a grain of salt. If it doesn't work, try
+
+        source ~/.bashrc
+
+    which should run the bashrc file and apply the desired command (among others in your bashrc file). Idk how bash works, so this might be incorrect.
+
+Then you should have it! Try the kpsewhich foo.sty command mentioned above and see if your .sty files behave how you want them to now!
+
