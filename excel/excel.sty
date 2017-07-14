@@ -1,9 +1,59 @@
-\RequirePackage{ifthen
+% Packages needed for proper functioning of this package
+    \RequirePackage{ifthen}
+
+% Custom Parameters from tex file
+    \newcommand*{\Andrew}[1]{\gdef\@Andrew{#1}}
+    \newcommand*{\Course}[1]{\gdef\@Course{#1}}
+    \newcommand*{\sessionDate}[1]{\gdef\@sessionDate{#1}}
+    \newcommand*{\subtitle}[1]{\gdef\@subtitle{#1}}
+
+% Page formatting and layout
+    \usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
+    \usepackage{fancyhdr}
+    \pagestyle{fancyplain}
+
+    % Formats header
+    \footrule
+    \lhead{\@Course\ EXCEL}
+    \rhead{\@sessionDate}
+
+    % makes header not appear on first page
+    \thispagestyle{empty}
+
+% Custom header
+    \renewcommand{\maketitle}{
+        \noindent \Course\ EXCEL \hfill Academic Development\\
+        \noindent Leader: \author \hfill Cyert Hall B5\\
+        \noindent \@Andrew\makeatletter{@}andrew.cmu.edu \hfill cmu.edu/acadev\\
+        \noindent \@sessionDate\\
+
+        \begin{center}
+            {\Large \title}\\
+            \textit{\@subtitle}
+        \end{center}
+    }
+
+
 
 \newcommand{\problem}[2]
   {\ifthenelse{\equal{\issolution}{true}}
       {\input{../#1/Problems/#2.tex} \\
        \input{../#1/Solutions/#2.tex} }
    {\input{../#1/Problems/#2}}}
+
+% Miscellaneous
+   % Make tables more spaced out
+   \renewcommand{\arraystretch}{2}
+
+
+%\newcommand{question}[1]
+
+
+%\author{Jacob Neumann}
+%\Andrew{jacobneu}
+%\Course{21-259}
+%\sessionDate{23 April 2017}
+%\title{Line Integrals}
+%\subtitle{}
 
 
