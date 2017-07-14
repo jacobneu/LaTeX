@@ -1,0 +1,30 @@
+======================================
+==== cheatSheet.sty documentation ====
+======================================
+
+Author: Jacob Neumann
+
+    cheatSheet.sty is a package designed to provide font, layout, and whitespace specifications suited to writing a large amount of information in a compact space. The original use was typesetting "cheat sheets": when a professor allowed students to bring a page of reference material into an exam. In preparing such a sheet, it may be useful to cram as much information into a single piece of paper as possible, hence the need for this package.
+    I originally implemented this package in early May 2017, for one exam in particular. That version of the package can be found in 2016-2017/cheatSheet-old.sty. It exhibited some odd behavior, which I will endeavour to fix.
+
+--------------------------------------
+
+    The compactification is achieved in several ways:
+
+    - Margins: I currently set margins to 0.3in on all sides. I originally went with 0in, but decided to include a small margin to avoid any potential issues with printing. I have not tested what kinds of printers can handle what kinds of margins (0.3in worked on a large, business printer, but I have doubts that it would work on a personal printer).
+    - No headers and footers
+    - Elimination of indents and parskips
+    - Theorems: In the file, a theorem is defined which can compactly represent information. I originally called it xx (for lack of a better name) and it was called as such:
+
+        \begin{xx}[Test1:]Lorem ipsum dolor it amet \end{xx}
+
+    which would be typeset as
+
+Test1:Lorem ipsum dolor sit amet
+
+    This is convenient for making a long series of definitions/short sentences
+
+--------------------------------------
+Issue Log:
+
+    - May 2017: Noticed an issue wherein white space between theorems would be wildly inconsistent. The amount of whitespace seemed dependent on the number of theorems on the page, in that these theorems would be equally vertically spaced across the page, rather than behving as expected.

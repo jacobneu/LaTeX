@@ -1,0 +1,9 @@
+\RequirePackage{ifthen
+
+\newcommand{\problem}[2]
+  {\ifthenelse{\equal{\issolution}{true}}
+      {\input{../#1/Problems/#2.tex} \\
+       \input{../#1/Solutions/#2.tex} }
+   {\input{../#1/Problems/#2}}}
+
+
