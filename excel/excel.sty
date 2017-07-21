@@ -18,28 +18,28 @@
     \rhead{\@sessionDate}
 
     % makes header not appear on first page
-    \thispagestyle{empty}
+    % \thispagestyle{empty}
 
 % Custom header
     \renewcommand{\maketitle}{
-        \noindent \Course\ EXCEL \hfill Academic Development\\
-        \noindent Leader: \author \hfill Cyert Hall B5\\
-        \noindent \@Andrew\makeatletter{@}andrew.cmu.edu \hfill cmu.edu/acadev\\
-        \noindent \@sessionDate\\
+        \noindent Leader: \@author \hfill Academic Development\\
+        \noindent \@Andrew\makeatletter{@}andrew.cmu.edu \hfill Cyert Hall B5\\
+        \noindent \@sessionDate \hfill cmu.edu/acadev\\
+
 
         \begin{center}
-            {\Large \title}\\
+            {\Large \@title }
             \textit{\@subtitle}
         \end{center}
     }
 
 
 
-\newcommand{\problem}[2]
+\newcommand{\problem}[1]
   {\ifthenelse{\equal{\issolution}{true}}
-      {\input{../#1/Problems/#2.tex} \\
-       \input{../#1/Solutions/#2.tex} }
-   {\input{../#1/Problems/#2}}}
+      {\input{../Problems/#1.tex} \\
+       \input{../Solutions/#1.tex} }
+   {\input{../Problems/#1}}}
 
 % Miscellaneous
    % Make tables more spaced out
